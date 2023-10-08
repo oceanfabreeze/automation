@@ -1,0 +1,106 @@
+#Post-Install Tasks after spinning up new virtual machines on Oracle Linux and Ubuntu, and daily maintenece. 
+#Author = oceanfabreeze
+#Version = 1.2 Beta Release
+#Changelog:
+#10/15/2022 (08:21PM EDT): Added sudo to ORACLE hosts for the change to using ansible instead of root. Added reboot syntax.
+#04/14/2023 (06:45PM EDT): Added RHEL as a client type.
+
+- hosts: oraclelinux
+  tasks:
+    - name: Make sure everything is up to date ORACLE
+      ansible.builtin.command: sudo yum -y upgrade
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Check if EPEL is enabled ORACLE
+      ansible.builtin.command: sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Check and output RepoList ORACLE
+      ansible.builtin.command: sudo yum repolist
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation. 
+      ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines 
+
+- hosts: RHEL
+  tasks:
+    - name: Make sure everything is up to date RHEL
+      ansible.builtin.command: sudo yum -y upgrade
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Check if EPEL is enabled RHEL
+      ansible.builtin.command: sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Check and output RepoList ORACLE
+      ansible.builtin.command: sudo yum repolist
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Make sure standard packaging is installed
+      ansible.builtin.command: sudo yum -y install htop git samba
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation. 
+      ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines 
+
+
+- hosts: ubuntuserver
+  tasks:
+    - name: Make sure everything is up to date UBUNTU
+      shell: sudo apt-get -y upgrade
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+        
+    - name: Make sure everything is up to date UBUNTU
+      shell: sudo apt-get -y htop git samba
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation. 
+      shell: shutdown -r +3 "The system is going down for updates in 3 minutes."
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines  
+
+#####Start OS Agnostic Checks/Installs#####
+
+#- hosts: all
+#  vars:
+#    packages:
+#      - htop
+#      - git
+#      - samba
+
+#  tasks:
+#    - name: Check to make sure everything is installed
+#      package:
+#        name: "{{ packages }}"
+#        state: latest
+#    - name: Confirmed!
+#      debug:
+#        msg: Packages have been installed successfully.

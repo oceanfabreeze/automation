@@ -1,0 +1,31 @@
+#Hosts file for RedHat Ansible Server for tfabrizio's home network.
+
+[oraclelinux]
+#Plex
+star.taffyhome.local
+#Rancher Server (PiHole,Minecraft,etc)
+cowboy.taffyhome.local
+#TAFBot Server
+tafbotserver.taffyhome.local
+#Ansible Delivery Server
+automator.taffyhome.local
+
+[ubuntuserver]
+#Homebridge Server
+homebridge.taffyhome.local
+
+[freebsd]
+#HomeNAS
+nasboiv3.taffyhome.local
+#PlexNAS
+hydrogen.taffyhome.local
+
+[ESXi]
+#VMs
+midnight.taffyhome.local
+#Media
+sunset.taffyhome.local
+
+[unifios]
+#UDMPro
+galaxy.taffyhome.local

@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    server:
+        container_name: vaultwarden
+        volumes:
+            - '/vw-data/:/data/'
+        ports:
+            - '99:80'
+        image: 'vaultwarden/server:latest'
+        environment:
+        - DOMAIN=xxx
+        - LOGIN_RATELIMIT_SECONDS=xxx
+        - LOGIN_RATELIMIT_MAX_BURST=xxx
+        - ADMIN_TOKEN=xxx
+        - SIGNUPS_ALLOWED=xxx
+        - INVITATIONS_ALLOWED=xxx
+        - SENDS_ALLOWED=xxx
+        - WEB_VAULT_ENABLED=xxx
+        - DUO_IKEY=xxx
+        - DUO_SKEY=xxx
+        - DUO_HOST=xxx
