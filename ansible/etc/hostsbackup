@@ -16,7 +16,7 @@ finder.taffyhome.local
 #Ansible Delivery Server
 ansible.taffyhome.local
 #homebridge
-jarvis.taffyhome.local
+pallet.taffyhome.local
 
 [oraclelinux] #and RHEL. 
 
