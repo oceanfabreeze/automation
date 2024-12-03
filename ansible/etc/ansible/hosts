@@ -1,10 +1,12 @@
 #Hosts file for RedHat Ansible Server for tfabrizio's home network.
 #Changelog:
 #12/15/2021 (08:35PM CST): Removed FreeBSD, ESXi, and Unifi hosts as these don't need to be managed. Removed TAFBotServer.
-#10/15/2022 (04:18PM EDT): Removed Rancher servers. Added Pihole, Vaultwarden, and Transmission. 
+#10/15/2022 (04:18PM EDT): Removed Rancher servers. Added Pihole, Vaultwarden, and Transmission.
 #04/03/2023 (09:28AM EDT): Renamed transmission to grabber. Renamed vaultwarden to webby.
 #04/14/2023 (06:43PM EDT): Added RHEL as a client type
-#10/07/2023 (02:43AM EDT): Added Jarvis and removed homebridge
+#04/08/2024 (12:34AM EDT): Removed and added hosts
+#04/19/2024 (11:56PM EDT): Removed and added hosts (pallet, finder)
+#12/02/2024 (10:52PM EST): Removed host (pallet) and replaced with new host (earth)
 
 [RHEL]
 #Plex
@@ -12,16 +14,12 @@ star.taffyhome.local
 #VPN, Radarr, Sonarr, Jackett, Transmission
 grabber.taffyhome.local
 #PiHole
-pihole.taffyhome.local
+finder.taffyhome.local
 #Ansible Delivery Server
 ansible.taffyhome.local
-#Web Server (NGINX/Portainer/Vault)
-webby.taffyhome.local
-#Homebridge
-jarvis.taffyhome.local
+#homebridge
+earth.taffyhome.local
 
-
-[oraclelinux] #and RHEL. 
+[oraclelinux] #and RHEL.
 
 [ubuntuserver]
-#Homebridge Server
