@@ -30,9 +30,9 @@
         var: command_output.stdout_lines
 
     - name: Pause for User Input to update login_duo.conf
-      ansible.builtin.pause: 
+      ansible.builtin.pause:
         prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
-            
+
     - name: Update SSH Config
       ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/configfile/sshd_config
       register: command_output
@@ -72,9 +72,9 @@
         var: command_output.stdout_lines
 
     - name: Pause for User Input to update login_duo.conf
-      ansible.builtin.pause: 
+      ansible.builtin.pause:
         prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
-    
+
     - name: Update SSH Config
       ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/configfile/sshd_config
       register: command_output
@@ -93,7 +93,9 @@
   hosts: ubuntuserver
   tasks:
     - name: Add Duo repository
-      shell: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/lists/duosecurity.list
+      ansible.builtin.shell:
+        cmd: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/lists/duosecurity.list
+        executable: /bin/bash
       become: true
       register: command_output
     - name: Output
@@ -101,7 +103,9 @@
         var: command_output.stdout_lines
 
     - name: Add Duo key
-      shell: curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
+      ansible.builtin.shell:
+        cmd: curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
+        executable: /bin/bash
       become: true
       register: command_output
     - name: Output
@@ -109,7 +113,9 @@
         var: command_output.stdout_lines
 
     - name: Install Duo Package
-      shell: apt-get update && apt-get install duo-unix
+      ansible.builtin.shell:
+        cmd: apt-get update && apt-get install duo-unix
+        executable: /bin/bash
       become: true
       register: command_output
     - name: Output
@@ -117,6 +123,5 @@
         var: command_output.stdout_lines
 
     - name: Pause for User Input to update login_duo.conf
-      ansible.builtin.pause: 
+      ansible.builtin.pause:
         prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
-        
