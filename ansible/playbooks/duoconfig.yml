@@ -42,7 +42,7 @@
         var: command_output.stdout_lines
 
 - hosts: RHEL
-    tasks:
+  tasks:
     - name: Add Duo repository
       ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/duosecurity.repo
       register: command_output
@@ -78,7 +78,7 @@
         var: command_output.stdout_lines
 
 - hosts: ubuntuserver
-    tasks:
+  tasks:
     - name: Add Duo repository
       shell: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/lists/duosecurity.list
       become: true
