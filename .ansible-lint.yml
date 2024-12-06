@@ -1,5 +1,5 @@
 ---
-profile: min
+profile: production
 
 # Exclude paths from linter
 exclude_paths:
