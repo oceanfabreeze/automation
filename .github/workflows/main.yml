@@ -1,50 +1,19 @@
-- name: ansible-test
-  # You may pin to the exact commit or the version.
-  # uses: ansible-community/ansible-test-gh-action@7d847f97e7c69bb18e1cd2b72756ddeaed060430
-  uses: ansible-community/ansible-test-gh-action@v1.15.0
-  with:
-    # `ansible-core` Git revision. See https://github.com/ansible/ansible/tags and https://github.com/ansible/ansible/branches/all?query=stable- for ideas. The repository this refers to can be changed with the `ansible-core-github-repository-slug` option.
-    ansible-core-version: # default is stable-2.14
-    # The GitHub repository slug from which to check out ansible-core
-    ansible-core-github-repository-slug: # optional, default is ansible/ansible
-    # Controller Python version. Only used for integration tests and ansible-core 2.12 or later when `target-python-version` is also specified.
-    controller-python-version: # optional, default is auto
-    # Collection root relative to repository root
-    collection-root: # optional, default is .
-    # A pre-checked out collection directory that's already on disk, substitutes getting the source from the remote Git repository if set. This action will not attempt to mutate its contents
-    collection-src-directory: # optional
-    # Whether to collect and upload coverage information. Can be set to `always`, `never`, and `auto`. The value `auto` will upload coverage information except when `pull-request-change-detection` is set to `true` and the action is called from a Pull Request.
-    coverage: # optional, default is auto
-    # Docker image used by ansible-test
-    docker-image: # optional
-    # Committish to check out, unused if `collection-src-directory` is set
-    git-checkout-ref: # optional
-    # Whether the continue with the other integration tests when an error occurs. If set to `false`, will stop on the first error. When set to `false` and `coverage=auto`, code coverage uploading will be disabled.
-    integration-continue-on-error: # optional, default is true
-    # Whether to show diff output when calling actions in integration tests. Actions can override this by specifying `diff: false` or `diff: true`.
-    integration-diff: # optional, default is true
-    # Whether to retry the current integration test once when an error happens.
-    integration-retry-on-error: # optional, default is true
-    # Environment Python version. The value `auto` uses the maximum Python version supported by the given `ansible-core-version`.
-    origin-python-version: # optional, default is auto
-    # Extra command to invoke before ansible-test
-    pre-test-cmd: # optional
-    # Whether to use change detection for pull requests. If set to `true`, will use change detection to determine changed files against the target branch, and will not upload code coverage results. If the invocation is not from a pull request, this option is ignored. Note that this requires `collection-src-directory` to be empty, or it has to be a git repository checkout where `collection-src-directory`/`collection-root` ends with `ansible_collections/{namespace}/{name}`, or it has to be a git repository checkout where `collection-root` is `.`.
-    pull-request-change-detection: # optional, default is false
-    # **(DEPRECATED)** Use `origin-python-version` instead. This is only kept for backwards compatibility.
-    python-version: # optional
-    # Comma-separated list of sanity tests to run. If not present, all applicable tests are run.
-    sanity-tests: # optional
-    # Comma-separated list of sanity tests to skip.
-    sanity-skip-tests: # optional
-    # Allow sanity tests to run which are disabled by default.
-    sanity-allow-disabled: # optional, default is false
-    # ansible-test TARGET
-    target: # optional
-    # Target Python version
-    target-python-version: # optional
-    # One of 'sanity', 'units' or 'integration'
-    testing-type: 
-    # Test dependencies to install along with this collection
-    test-deps: # optional
-          
+# .github/workflows/ansible-lint.yml
+name: ansible-lint
+on:
+  pull_request:
+    branches: ["main", "stable", "release/v*"]
+jobs:
+  build:
+    name: Ansible Lint # Naming the build is important to use it as a status check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main
+        # optional (see below):
+        with:
+          args: ""
+          setup_python: "true"
+          working_directory: ""
+          requirements_file: ""
