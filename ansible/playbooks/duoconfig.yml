@@ -104,7 +104,7 @@
 
     - name: Add Duo key
       ansible.builtin.shell:
-        cmd: curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
+        cmd: set -o pipefail && curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
         executable: /bin/bash
       become: true
       register: command_output
