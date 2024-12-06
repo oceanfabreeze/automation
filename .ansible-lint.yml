@@ -1,0 +1,14 @@
+---
+profile: production
+
+# Exclude paths from linter
+exclude_paths:
+  - ".github/"
+  - "docker/"
+  - "secops/"
+
+# Ansible Linter rules
+skip_list:
+  - yaml[colons] # Violations reported by yamllint.
+  - yaml[line-length] # Violations reported by yamllint.
+...
