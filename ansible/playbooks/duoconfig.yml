@@ -1,0 +1,127 @@
+# Configure Duo authentication on new Linux hosts
+# Author = oceanfabreeze
+# Version = 0.1.0 Alpha
+# Changelog:
+# 12/06/2024 (02:16PM EST): Created Playbook. Initial commit includes installing the duo package.
+# 12/06/2024 (02:46PM EST): Adding Modifications to SSHD config for OEL and RHEL and restarting the service. Adding pause prompt to update duo config file.
+
+- name: Oracle Linux Hosts
+  hosts: oraclelinux
+  tasks:
+    - name: Add Duo repository
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/duosecurity.repo
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      ansible.builtin.command: yum install duo_unix
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause:
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
+
+    - name: Update SSH Config
+      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/configfile/sshd_config
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Restart SSHD Service
+      ansible.builtin.command: systemctl restart sshd
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+- name: RHEL Hosts
+  hosts: RHEL
+  tasks:
+    - name: Add Duo repository
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/duosecurity.repo
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      ansible.builtin.command: yum install duo_unix
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause:
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
+
+    - name: Update SSH Config
+      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/configfile/sshd_config
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Restart SSHD Service
+      ansible.builtin.command: systemctl restart sshd
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+- name: Ubuntu Hosts
+  hosts: ubuntuserver
+  tasks:
+    - name: Add Duo repository
+      ansible.builtin.shell:
+        cmd: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/lists/duosecurity.list
+        executable: /bin/bash
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      ansible.builtin.shell:
+        cmd: set -o pipefail && curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
+        executable: /bin/bash
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      ansible.builtin.shell:
+        cmd: apt-get update && apt-get install duo-unix
+        executable: /bin/bash
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause:
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
