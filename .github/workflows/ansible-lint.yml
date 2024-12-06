@@ -6,6 +6,7 @@ jobs:
   build:
     name: Ansible Lint # Naming the build is important to use it as a status check
     runs-on: ubuntu-24.04
+    if: always() && github.repository == 'oceanfabreeze/automation'
     steps:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
@@ -15,4 +16,3 @@ jobs:
           args: --config=.ansible-lint.yml
           setup_python: "true"
           working_directory: .
-          requirements_file: ""
