@@ -12,7 +12,7 @@ jobs:
         uses: ansible/ansible-lint@main
         # optional (see below):
         with:
-          args: ""
+          args: --config=.ansible-lint.yml
           setup_python: "true"
-          working_directory: ""
+          working_directory: .
           requirements_file: ""
