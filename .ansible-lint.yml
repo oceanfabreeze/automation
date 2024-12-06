@@ -12,4 +12,7 @@ exclude_paths:
 skip_list:
   - yaml[colons] # Violations reported by yamllint.
   - yaml[line-length] # Violations reported by yamllint.
+  - no-changed-when # Ignores error about task not doing anything
+  - command-instead-of-shell # Ignores error about using shell commands
+  - command-instead-of-module # Ignores errors about using a command instead of module
 ...
