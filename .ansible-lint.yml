@@ -6,6 +6,7 @@ exclude_paths:
   - ".github/"
   - "docker/"
   - "secops/"
+  - "ansible/etc"
 
 # Ansible Linter rules
 skip_list:
