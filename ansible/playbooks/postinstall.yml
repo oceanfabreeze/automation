@@ -1,4 +1,4 @@
-# Post-Install Tasks after spinning up new virtual machines on Oracle Linux and Ubuntu, and daily maintenece. 
+# Post-Install Tasks after spinning up new virtual machines on Oracle Linux and Ubuntu, and daily maintenece.
 # Author = oceanfabreeze
 # Version = 1.2 Beta Release
 # Changelog:
@@ -8,62 +8,71 @@
 - name: Oracle Linux
   hosts: oraclelinux
   tasks:
-    - name: Make sure everything is up to date ORACLE
+    - name: Upgrade Packages ORACLE
       ansible.builtin.command: sudo yum -y upgrade
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Check if EPEL is enabled ORACLE
+    - name: Enable EPEL
       ansible.builtin.command: sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Check and output RepoList ORACLE
+    - name: Output RepoList ORACLE
       ansible.builtin.command: sudo yum repolist
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Reboot Machines 3 minutes after installation. 
+    - name: Reboot Machines 3 minutes after installation.
       ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines 
 
 - name: RED HAT
   hosts: RHEL
   tasks:
-    - name: Make sure everything is up to date RHEL
+    - name: Upgrade Packages RHEL
       ansible.builtin.command: sudo yum -y upgrade
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Check if EPEL is enabled RHEL
+    - name: Enable EPEL
       ansible.builtin.command: sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Check and output RepoList ORACLE
+    - name: Output RepoList RHEL
       ansible.builtin.command: sudo yum repolist
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Make sure standard packaging is installed
       ansible.builtin.command: sudo yum -y install htop git samba
       register: command_output
-    - ansible.builtin.debug:
+    - name: Output
+      ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Reboot Machines 3 minutes after installation. 
+    - name: Reboot Machines 3 minutes after installation.
       ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
       register: command_output
-    - ansible.builtin.debug:
-        var: command_output.stdout_lines 
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
 
 
 - name: UBUNTU
