@@ -34,7 +34,7 @@
       register: command_output
     - name: Output
       ansible.builtin.debug:
-        var: command_output.stdout_lines 
+        var: command_output.stdout_lines
 
 - name: RED HAT
   hosts: RHEL
@@ -79,32 +79,32 @@
   hosts: ubuntuserver
   tasks:
     - name: Make sure everything is up to date UBUNTU
-      shell: sudo apt-get -y upgrade
+      ansible.builtin.shell: sudo apt-get -y upgrade
       become: true
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
-        
+
     - name: Make sure everything is up to date UBUNTU
-      shell: sudo apt-get -y htop git samba
+      ansible.builtin.shell: sudo apt-get -y htop git samba
       become: true
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Reboot Machines 3 minutes after installation. 
-      shell: shutdown -r +3 "The system is going down for updates in 3 minutes."
+    - name: Reboot Machines 3 minutes after installation.
+      ansible.builtin.shell: shutdown -r +3 "The system is going down for updates in 3 minutes."
       become: true
       register: command_output
     - name: Output
       ansible.builtin.debug:
-        var: command_output.stdout_lines  
+        var: command_output.stdout_lines
 
-#####Start OS Agnostic Checks/Installs#####
+##### Start OS Agnostic Checks/Installs #####
 
-#- hosts: all
+# - hosts: all
 #  vars:
 #    packages:
 #      - htop
