@@ -8,7 +8,7 @@
 - hosts: oraclelinux
   tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ <URLHERE>
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/duosecurity.repo
       register: command_output
     - debug:
         var: command_output.stdout_lines
@@ -28,7 +28,7 @@
 - hosts: RHEL
     tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ <URLHERE>
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/duosecurity.repo
       register: command_output
     - debug:
         var: command_output.stdout_lines
@@ -48,7 +48,7 @@
 - hosts: ubuntuserver
     tasks:
     - name: Add Duo repository
-      shell: wget -P /etc/apt/sources.list.d/ <URLHERE>
+      shell: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/duosecurity.list
       become: true
       register: command_output
     - debug:
