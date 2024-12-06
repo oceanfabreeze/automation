@@ -2,13 +2,14 @@
 #Author = oceanfabreeze
 #Version = 0.1.0 Alpha
 #Changelog:
-#12/06/2024 (02:16PM EST): Created Playbook
+#12/06/2024 (02:16PM EST): Created Playbook. Initial commit includes installing the duo package. 
+#12/06/2024 (02:46PM EST): Adding Modifications to SSHD config for OEL and RHEL and restarting the service. Adding pause prompt to update duo config file.
 
 
 - hosts: oraclelinux
   tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/duosecurity.repo
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/duosecurity.repo
       register: command_output
     - debug:
         var: command_output.stdout_lines
@@ -21,6 +22,22 @@
 
     - name: Install Duo Package
       ansible.builtin.command: yum install duo_unix
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause: 
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
+            
+    - name: Update SSH Config
+      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/configfile/sshd_config
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Restart SSHD Service
+      ansible.builtin.command: systemctl restart sshd
       register: command_output
     - debug:
         var: command_output.stdout_lines
@@ -28,7 +45,7 @@
 - hosts: RHEL
     tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/duosecurity.repo
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/duosecurity.repo
       register: command_output
     - debug:
         var: command_output.stdout_lines
@@ -45,10 +62,26 @@
     - debug:
         var: command_output.stdout_lines
 
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause: 
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
+    
+    - name: Update SSH Config
+      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/configfile/sshd_config
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Restart SSHD Service
+      ansible.builtin.command: systemctl restart sshd
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
 - hosts: ubuntuserver
     tasks:
     - name: Add Duo repository
-      shell: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/duosecurity.list
+      shell: wget -P /etc/apt/sources.list.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/UBUNTU/lists/duosecurity.list
       become: true
       register: command_output
     - debug:
@@ -67,3 +100,7 @@
       register: command_output
     - debug:
         var: command_output.stdout_lines
+        
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause: 
+        prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
