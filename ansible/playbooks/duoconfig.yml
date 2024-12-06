@@ -1,0 +1,69 @@
+#Configure Duo authentication on new Linux hosts
+#Author = oceanfabreeze
+#Version = 0.1.0 Alpha
+#Changelog:
+#12/06/2024 (02:16PM EST): Created Playbook
+
+
+- hosts: oraclelinux
+  tasks:
+    - name: Add Duo repository
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ <URLHERE>
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      ansible.builtin.command: yum install duo_unix
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+- hosts: RHEL
+    tasks:
+    - name: Add Duo repository
+      ansible.builtin.command: wget -P /etc/yum.repos.d/ <URLHERE>
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      ansible.builtin.command: yum install duo_unix
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+- hosts: ubuntuserver
+    tasks:
+    - name: Add Duo repository
+      shell: wget -P /etc/apt/sources.list.d/ <URLHERE>
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Add Duo key
+      shell: curl -s https://duo.com/DUO-GPG-PUBLIC-KEY.asc | sudo gpg --dearmor -o  /etc/apt/trusted.gpg.d/duo.gpg
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Install Duo Package
+      shell: apt-get update && apt-get install duo-unix
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
