@@ -1,4 +1,4 @@
-# create_ansible_user
+## create_ansible_user
 Creates ansible user and assigns correct privs on new linux boxes
 
 ## dell-fancontrol
