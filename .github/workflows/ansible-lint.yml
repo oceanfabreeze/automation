@@ -1,5 +1,6 @@
 name: ansible-lint
 on:
+  merge_group:
   pull_request:
     branches: ["main", "stable", "release/v*"]
 jobs:
