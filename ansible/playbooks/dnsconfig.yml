@@ -1,0 +1,48 @@
+# DNS Server Install
+# Author = oceanfabreeze
+# Version = 0.1.0 Alpha
+# Changelog:
+# 12/07/2024 (04:49PM EST): Initial commit. Installs AdGuard Home on a Linux host.
+
+- name: Oracle Linux
+  hosts: oraclelinux
+  tasks:
+    - name: Install AdGaurd Home
+      ansible.builtin.command: wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to confirm configuration
+      ansible.builtin.pause:
+        prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.
+
+- name: RED HAT
+  hosts: RHEL
+  tasks:
+    - name: Install AdGaurd Home
+      ansible.builtin.command: wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause:
+        prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.
+
+- name: UBUNTU
+  hosts: ubuntuserver
+  tasks:
+    - name: Install AdGaurd Home
+      ansible.builtin.shell: wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to update login_duo.conf
+      ansible.builtin.pause:
+        prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.
