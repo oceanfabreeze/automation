@@ -1,3 +1,6 @@
+# create_ansible_user
+Creates ansible user and assigns correct privs on new linux boxes
+
 ## dell-fancontrol
 Created to control fan noise on Dell PowerEdge servers through IPMI. Tests temperature periodically, if temp exeeds limit fan control is returned to default values. 
 
