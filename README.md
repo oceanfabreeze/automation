@@ -10,5 +10,8 @@ This houses inventory files for hosts, playbooks, and support files for scripts/
 ## docker
 Hosts docker-compose files for now. Not really used as i'm no longer contanerizing anything in the lab but keeping here for future. 
 
+## standalone-scripts
+Standalone Scripts written in Shell and Python to be run independantly from an automation solution.
+
 ## .ansible-lint.yml
 Config for the Ansible Linter workflow defined in Github Actions. Ignoring a few things that I don't care about in a lab setting. 
