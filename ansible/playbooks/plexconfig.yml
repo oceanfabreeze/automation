@@ -52,7 +52,7 @@
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
-               
+
 - name: RHEL Hosts
   hosts: RHEL
   tasks:
