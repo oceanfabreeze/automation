@@ -1,8 +1,9 @@
 # Configure Plex on new Linux hosts
 # Author = oceanfabreeze
-# Version = 0.1.0 ALpha
+# Version = 0.1.1 ALpha
 # Changelog:
 # 12/07/2024 (12:14AM EST): Initial Commit. Only for RHEL and OEL.
+# 12/10/2024 (01:22AM EST): Added sudo to all yum commands.
 
 - name: Oracle Linux Hosts
   hosts: oraclelinux
