@@ -1,42 +1,43 @@
 # Configure Plex on new Linux hosts
 # Author = oceanfabreeze
-# Version = 0.1.0 ALpha
+# Version = 0.1.1 ALpha
 # Changelog:
 # 12/07/2024 (12:14AM EST): Initial Commit. Only for RHEL and OEL.
+# 12/10/2024 (01:22AM EST): Added sudo to all yum commands.
 
 - name: Oracle Linux Hosts
   hosts: oraclelinux
   tasks:
     - name: Add Plex repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/plex.repo
+      ansible.builtin.command: sudo wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/plex.repo
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install Plex Package
-      ansible.builtin.command: yum install plexmediaserver
+      ansible.builtin.command: sudo yum -y install plexmediaserver
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Disable Firewall and Stop
-      ansible.builtin.command: systemctl disable firewalld && systemctl stop firewalld
+      ansible.builtin.command: sudo systemctl disable firewalld && systemctl stop firewalld
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Make directories
-      ansible.builtin.command: mkdir /home/movies && mkdir /home/tv && mkdir /home/familyvids
+      ansible.builtin.command: sudo mkdir /home/movies && mkdir /home/tv && mkdir /home/familyvids
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install NFS
-      ansible.builtin.command: yum install nfs-utils
+      ansible.builtin.command: sudo yum -y install nfs-utils
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -47,7 +48,7 @@
         prompt: Please update /etc/fstab with the correct variables, then press return to continue execution.
 
     - name: Mount all filesystems
-      ansible.builtin.command: mount -a
+      ansible.builtin.command: sudo mount -a
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -57,35 +58,35 @@
   hosts: RHEL
   tasks:
     - name: Add Plex repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/plex.repo
+      ansible.builtin.command: sudo wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/plex.repo
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install Plex Package
-      ansible.builtin.command: yum install plexmediaserver
+      ansible.builtin.command: sudo yum -y install plexmediaserver
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Disable Firewall and Stop
-      ansible.builtin.command: systemctl disable firewalld && systemctl stop firewalld
+      ansible.builtin.command: sudo systemctl disable firewalld && systemctl stop firewalld
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Make directories
-      ansible.builtin.command: mkdir /home/movies && mkdir /home/tv && mkdir /home/familyvids
+      ansible.builtin.command: sudo mkdir /home/movies && mkdir /home/tv && mkdir /home/familyvids
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install NFS
-      ansible.builtin.command: yum install nfs-utils
+      ansible.builtin.command: sudo yum -y install nfs-utils
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -96,7 +97,7 @@
         prompt: Please update /etc/fstab with the correct variables, then press return to continue execution.
 
     - name: Mount all filesystems
-      ansible.builtin.command: mount -a
+      ansible.builtin.command: sudo mount -a
       register: command_output
     - name: Output
       ansible.builtin.debug:
