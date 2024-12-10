@@ -9,21 +9,21 @@
   hosts: oraclelinux
   tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/duosecurity.repo
+      ansible.builtin.command: sudo wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/repos/duosecurity.repo
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Add Duo key
-      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      ansible.builtin.command: sudo rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install Duo Package
-      ansible.builtin.command: yum install duo_unix
+      ansible.builtin.command: sudo yum install duo_unix
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -34,14 +34,14 @@
         prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
 
     - name: Update SSH Config
-      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/configfile/sshd_config
+      ansible.builtin.command: sudo wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/ORACLE/configfile/sshd_config
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Restart SSHD Service
-      ansible.builtin.command: systemctl restart sshd
+      ansible.builtin.command: sudo systemctl restart sshd
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -51,21 +51,21 @@
   hosts: RHEL
   tasks:
     - name: Add Duo repository
-      ansible.builtin.command: wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/duosecurity.repo
+      ansible.builtin.command: sudo wget -P /etc/yum.repos.d/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/repos/duosecurity.repo
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Add Duo key
-      ansible.builtin.command: rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
+      ansible.builtin.command: sudo rpm --import https://duo.com/DUO-GPG-PUBLIC-KEY.asc
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Install Duo Package
-      ansible.builtin.command: yum install duo_unix
+      ansible.builtin.command: sudo yum install duo_unix
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -76,14 +76,14 @@
         prompt: Please update /etc/duo/login_duo.conf with the correct variables, then press return to continue execution.
 
     - name: Update SSH Config
-      ansible.builtin.command: wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/configfile/sshd_config
+      ansible.builtin.command: sudo wget -P /etc/ssh/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/ansible/supportfiles/os-specific/RHEL/configfile/sshd_config
       register: command_output
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
     - name: Restart SSHD Service
-      ansible.builtin.command: systemctl restart sshd
+      ansible.builtin.command: sudo systemctl restart sshd
       register: command_output
     - name: Output
       ansible.builtin.debug:
