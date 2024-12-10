@@ -28,7 +28,7 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Pause for User Input to update login_duo.conf
+    - name: Pause for User Input to confirm configuration
       ansible.builtin.pause:
         prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.
 
@@ -43,6 +43,6 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Pause for User Input to update login_duo.conf
+    - name: Pause for User Input to confirm configuration
       ansible.builtin.pause:
         prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.

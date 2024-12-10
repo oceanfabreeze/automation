@@ -23,7 +23,7 @@
         var: command_output.stdout_lines
 
     - name: Install Duo Package
-      ansible.builtin.command: sudo yum install duo_unix
+      ansible.builtin.command: sudo yum -y install duo_unix
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -65,7 +65,7 @@
         var: command_output.stdout_lines
 
     - name: Install Duo Package
-      ansible.builtin.command: sudo yum install duo_unix
+      ansible.builtin.command: sudo yum -y install duo_unix
       register: command_output
     - name: Output
       ansible.builtin.debug:
