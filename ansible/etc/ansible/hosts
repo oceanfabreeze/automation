@@ -19,6 +19,8 @@ finder.taffyhome.local
 ansible.taffyhome.local
 #homebridge
 earth.taffyhome.local
+#games
+rocket.taffyhome.local
 
 [oraclelinux] #and RHEL.
 
