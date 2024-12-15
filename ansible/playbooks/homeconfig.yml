@@ -67,8 +67,8 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-     - name: HomeBridge Install Confirmed
-        ansible.builtin.pause:
+    - name: HomeBridge Install Confirmed
+      ansible.builtin.pause:
           prompt: HomeBridge should now be installed. Service is hosted on Port 8581. To complete setup, login to the admin panel. 
 
 - name: RHEL Hosts
@@ -134,6 +134,6 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-     - name: HomeBridge Install Confirmed
-        ansible.builtin.pause:
-          prompt: HomeBridge should now be installed. Service is hosted on Port 8581. To complete setup, login to the admin panel.
+    - name: HomeBridge Install Confirmed
+      ansible.builtin.pause:
+        prompt: HomeBridge should now be installed. Service is hosted on Port 8581. To complete setup, login to the admin panel.
