@@ -1,0 +1,139 @@
+# Configure Homebridge on new Linux hosts. Installs nodejs v22 for now as its currently the highest supported HB version.
+# Author = oceanfabreeze
+# Version = 0.1.0 Alpha
+# Changelog:
+# 12/14/2024 (08:12PM EST): Initial Commit. Only for RHEL and OEL.
+
+- name: Oracle Linux Hosts
+  hosts: oraclelinux
+  tasks:
+    - name: Install CURL if not installed
+      ansible.builtin.command: sudo yum install -y curl
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Download node setup script
+      ansible.builtin.command: curl -fsSL https://rpm.nodesource.com/setup_22.x -o nodesource_setup.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Run node setup script
+      ansible.builtin.command: sudo bash nodesource_setup.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Node
+      ansible.builtin.command: sudo yum install -y nodejs
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Verify Node Install
+      ansible.builtin.command: node -v
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Node Installed
+      ansible.builtin.pause:
+        prompt: NodeJS should now be installed. Press return to continue to HB Install.
+
+    - name: Install HB Build Tools
+      ansible.builtin.command: sudo yum groupinstall -y 'Development Tools'
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install all HomeBridge Packages
+      ansible.builtin.command: sudo npm install -g --unsafe-perm homebridge homebridge-config-ui-x
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Setup Homebridge Service
+      ansible.builtin.command: sudo hb-service install --user homebridge
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+     - name: HomeBridge Install Confirmed
+        ansible.builtin.pause:
+          prompt: HomeBridge should now be installed. Service is hosted on Port 8581. To complete setup, login to the admin panel. 
+
+- name: RHEL Hosts
+  hosts: RHEL
+  tasks:
+    - name: Install CURL if not installed
+      ansible.builtin.command: sudo yum install -y curl
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Download node setup script
+      ansible.builtin.command: curl -fsSL https://rpm.nodesource.com/setup_22.x -o nodesource_setup.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Run node setup script
+      ansible.builtin.command: sudo bash nodesource_setup.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Node
+      ansible.builtin.command: sudo yum install -y nodejs
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Verify Node Install
+      ansible.builtin.command: node -v
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Node Installed
+      ansible.builtin.pause:
+        prompt: NodeJS should now be installed. Press return to continue to HB Install.
+
+    - name: Install HB Build Tools
+      ansible.builtin.command: sudo yum groupinstall -y 'Development Tools'
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install all HomeBridge Packages
+      ansible.builtin.command: sudo npm install -g --unsafe-perm homebridge homebridge-config-ui-x
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Setup Homebridge Service
+      ansible.builtin.command: sudo hb-service install --user homebridge
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+     - name: HomeBridge Install Confirmed
+        ansible.builtin.pause:
+          prompt: HomeBridge should now be installed. Service is hosted on Port 8581. To complete setup, login to the admin panel.
