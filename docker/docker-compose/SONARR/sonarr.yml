@@ -4,6 +4,8 @@ services:
     container_name: sonarr
     environment:
       - TZ=America/New_York
+      - PUID=0
+      - PGID=0
     volumes:
       - /etc/apps/sonarr:/config
       - /home/tv:/tv
