@@ -1,8 +1,8 @@
 #!/bin/bash
 # -------------------------------------------------------------------------
 #author=Thomas A. Fabrizio (TAFFY)
-#verison=1.3
-#Changelog=Adding Date to logfile
+#version=1.4
+#Changelog= Changing command ran as vpn service is not restarting
 # ----------------------------------------------------------------------------------
 # Script to check if openvpn is running. If not, start it. 
 # ----------------------------------------------------------------------------------
@@ -10,9 +10,8 @@
 DATE=$(date)
 
 if pgrep openvpn;
-    then
-        printf "\n($DATE) VPN IS RUNNING!" >> /root/vpn.log
+then
+    printf "\n($DATE) VPN IS RUNNING!" >> /root/vpn.log
 else
-    printf "\n($DATE) VPN IS NOT RUNNING. STARTING." >> /root/vpn.log
-    service openvpn-client@vpn start
+   systemctl start openvpn-client@vpn && printf "\n($DATE) VPN IS NOT RUNNING. STARTING." >> /root/vpn.log
 fi

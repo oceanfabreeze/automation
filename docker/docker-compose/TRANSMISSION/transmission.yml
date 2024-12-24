@@ -1,0 +1,20 @@
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - TZ=America/New_York
+      - USER=tafabrizio
+      - PASS=insertpasswordhere
+      - PUID=1001
+      - PGID=1001
+    volumes:
+      - /etc/apps/transmission:/config
+      - /home/downloads:/downloads
+      - /etc/apps/transmission/watchfolder:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+networks: {}
