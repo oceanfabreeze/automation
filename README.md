@@ -8,7 +8,7 @@ Houses configuration for github actions. Currently Ansible Lint is the only chec
 This houses inventory files for hosts, playbooks, and support files for scripts/playbooks.
 
 ## docker
-Hosts docker-compose files for now. Not really used as i'm no longer contanerizing anything in the lab but keeping here for future. 
+Hosts docker-compose files.
 
 ## standalone-scripts
 Standalone Scripts written in Shell and Python to be run independantly from an automation solution.
