@@ -1,0 +1,11 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /etc/apps/sonarr:/config
+    ports:
+      - 8989:8989
+    restart: unless-stopped
