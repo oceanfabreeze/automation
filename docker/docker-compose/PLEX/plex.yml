@@ -1,0 +1,20 @@
+version: "2"
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+      - PLEX_CLAIM=claim-iphyNzCoG3iJmaeZdumg
+      - PLEX_UID=1001
+      - PLEX_GID=1001
+    network_mode: host
+    volumes:
+      - /etc/plex/config:/config
+      - /etc/plex/transcode:/transcode
+      - /home/tv:/tv
+      - /home/movies:/movies
+      - /home/familyvids:/familyvids
+      - /home/photos:/photos
+networks: {}
