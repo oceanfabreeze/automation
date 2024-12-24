@@ -29,7 +29,7 @@
         var: command_output.stdout_lines
 
     - name: Install Docker
-      ansible.builtin.command: sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      ansible.builtin.command: sudo yum -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -50,7 +50,7 @@
         var: command_output.stdout_lines
 
     - name: Deploy Dockge
-      ansible.builtin.command: sudo docker-compose -f /home/ansible/dockge.yml up -d
+      ansible.builtin.command: sudo docker compose -f /home/ansible/dockge.yml up -d
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -101,6 +101,13 @@
 
     - name: Add vpncheck.sh to root crontab and run every 5 minutes
       ansible.builtin.command: sudo echo "*/5 * * * * /home/ansible/vpncheck.sh >> /home/ansible/vpnlog.txt" >> /var/spool/cron/root
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install cifs-utils
+      ansible.builtin.command: sudo dnf -y install cifs-utils
       register: command_output
     - name: Output
       ansible.builtin.debug:

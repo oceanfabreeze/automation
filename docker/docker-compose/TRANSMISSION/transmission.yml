@@ -4,8 +4,10 @@ services:
     container_name: transmission
     environment:
       - TZ=America/New_York
-      - USER= tafabrizio
-      - PASS= insertpasswordhere
+      - USER=tafabrizio
+      - PASS=insertpasswordhere
+      - PUID=1001
+      - PGID=1001
     volumes:
       - /etc/apps/transmission:/config
       - /home/downloads:/downloads
@@ -15,3 +17,4 @@ services:
       - 51413:51413
       - 51413:51413/udp
     restart: unless-stopped
+networks: {}
