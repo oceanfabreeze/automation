@@ -6,6 +6,9 @@ services:
       - TZ=America/New_York
     volumes:
       - /etc/apps/sonarr:/config
+      - /home/tv:/tv
+      - /home/downloads/complete/tv-sonarr:/downloads/complete/tv-sonarr
     ports:
       - 8989:8989
     restart: unless-stopped
+networks: {}

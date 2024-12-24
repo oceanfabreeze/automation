@@ -3,9 +3,14 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
+      - PUID=0
+      - PGID=0
       - TZ=Etc/UTC
     volumes:
       - /etc/apps/radarr:/config
+      - /home/movies:/movies
+      - /home/downloads/complete/radarr:/downloads/complete/radarr
     ports:
       - 7878:7878
     restart: unless-stopped
+networks: {}
