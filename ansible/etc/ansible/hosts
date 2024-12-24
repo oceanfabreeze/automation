@@ -7,6 +7,7 @@
 #04/08/2024 (12:34AM EDT): Removed and added hosts
 #04/19/2024 (11:56PM EDT): Removed and added hosts (pallet, finder)
 #12/02/2024 (10:52PM EST): Removed host (pallet) and replaced with new host (earth)
+#12/23/2024 (10:58PM EST): Added host (station) for Docker Administration
 
 [RHEL]
 #Plex
@@ -21,6 +22,8 @@ ansible.taffyhome.local
 earth.taffyhome.local
 #games
 rocket.taffyhome.local
+#docker
+station.taffyhome.local
 
 [oraclelinux] #and RHEL.
 

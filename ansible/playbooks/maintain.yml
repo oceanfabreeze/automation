@@ -1,0 +1,76 @@
+# Maintain currently running servers by updating packages and installing necessary software.
+# Version = 1.0 Initial release
+# Changelog:
+# 12/23/2024 (11:01PM EST): Inital Commit.
+
+- name: Oracle Linux
+  hosts: oraclelinux
+  tasks:
+    - name: Upgrade Packages ORACLE
+      ansible.builtin.command: sudo yum -y upgrade
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation.
+      ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+- name: RED HAT
+  hosts: RHEL
+  tasks:
+    - name: Upgrade Packages RHEL
+      ansible.builtin.command: sudo yum -y upgrade
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation.
+      ansible.builtin.command: sudo shutdown -r +3 "The system is going down for updates in 3 minutes."
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+
+- name: UBUNTU
+  hosts: ubuntuserver
+  tasks:
+    - name: Make sure everything is up to date UBUNTU
+      ansible.builtin.shell: sudo apt-get -y upgrade
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Reboot Machines 3 minutes after installation.
+      ansible.builtin.shell: shutdown -r +3 "The system is going down for updates in 3 minutes."
+      become: true
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+##### Start OS Agnostic Checks/Installs #####
+
+# - hosts: all
+#  vars:
+#    packages:
+#      - htop
+#      - git
+#      - samba
+
+#  tasks:
+#    - name: Check to make sure everything is installed
+#      package:
+#        name: "{{ packages }}"
+#        state: latest
+#    - name: Confirmed!
+#      debug:
+#        msg: Packages have been installed successfully.
