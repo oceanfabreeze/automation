@@ -10,12 +10,11 @@
 #12/23/2024 (10:58PM EST): Added host (station) for Docker Administration
 #12/24/2024 (01:57AM EST): Removed host (earth) as its been containerized and moved to station.
 #12/24/2024 (10:40AM EST): Added host (uplink) for ARR stack and VPN
+#12/25/2024 (07:06PM EST): Removed host grabber as it's stack was containerized and moved to uplink. Removed host star as its stack was containerized and moved to station.
 
 [RHEL]
 #Plex
 star.taffyhome.local
-#VPN, Radarr, Sonarr, Jackett, Transmission
-grabber.taffyhome.local
 #PiHole
 finder.taffyhome.local
 #Ansible Delivery Server
