@@ -1,2 +1,0 @@
-##Run ansible on local hosts every day at 3AM Central
-00 03 * * * ansible-playbook /etc/ansible/playbooks/postinstall.yml >> /etc/ansible/logtest.txt
