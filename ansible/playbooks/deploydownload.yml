@@ -1,0 +1,118 @@
+# Deploys Docker and ARR stack on a Linux host.
+# Author = oceanfabreeze
+# Version = 0.1.0 Alpha
+# Changelog:
+# 12/24/2024 (09:59AM EST): Initial commit.
+
+- name: RED HAT
+  hosts: RHEL
+  tasks:
+    - name: Remove all existing Docker installations
+      ansible.builtin.command: sudo yum -y remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install dnf-plugins-core
+      ansible.builtin.command: sudo dnf -y install dnf-plugins-core
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Add Docker Repository
+      ansible.builtin.command: sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Docker
+      ansible.builtin.command: sudo yum -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Start Docker
+      ansible.builtin.command: sudo systemctl enable --now docker
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Download Dockge Compose File
+      ansible.builtin.command: sudo wget -P /home/ansible/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/docker/docker-compose/DOCKGE/dockge.yml
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Deploy Dockge
+      ansible.builtin.command: sudo docker compose -f /home/ansible/dockge.yml up -d
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause to deploy containers for ARR stack (Sonarr, Radarr, Prowlarr, Transmission, Watchtower)
+      ansible.builtin.pause:
+        prompt: Please deploy the containers for the ARR stack, then press return to continue execution.
+
+    - name: Install OpenVPN
+      ansible.builtin.command: sudo dnf -y install openvpn
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for User Input to add OpenVPN Client Config
+      ansible.builtin.pause:
+        prompt: Please add the OpenVPN client config to /etc/openvpn/client/vpn.conf, then press return to continue execution.
+
+    - name: Start and enable OpenVPN
+      ansible.builtin.command: sudo systemctl enable --now openvpn-client@vpn
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Download vpncheck.sh script from GitHub
+      ansible.builtin.command: sudo wget -P /home/ansible/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/standalone-scripts/vpncheck/vpncheck.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Make vpncheck.sh script executable
+      ansible.builtin.command: sudo chmod +x /home/ansible/vpncheck.sh
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Create vpnlog.txt file
+      ansible.builtin.command: sudo touch /home/ansible/vpnlog.txt
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Add vpncheck.sh to root crontab and run every 5 minutes
+      ansible.builtin.command: sudo echo "*/5 * * * * /home/ansible/vpncheck.sh >> /home/ansible/vpnlog.txt" >> /var/spool/cron/root
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install cifs-utils
+      ansible.builtin.command: sudo dnf -y install cifs-utils
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for Successful Install Message
+      ansible.builtin.pause:
+        prompt: The ARR stack has been successfully deployed. Please confirm the containers are running and the VPN is connected, then press return to finish execution
