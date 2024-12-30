@@ -9,6 +9,3 @@ Playbooks for automation deployment
 
 ## supportfiles
 Files to support Automation Tasks
-
-## crontab
-Crontab to run the postinstall.yml playbook nightly

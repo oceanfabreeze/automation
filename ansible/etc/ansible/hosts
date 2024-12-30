@@ -13,8 +13,6 @@
 #12/25/2024 (07:06PM EST): Removed host grabber as it's stack was containerized and moved to uplink. Removed host star as its stack was containerized and moved to station.
 
 [RHEL]
-#Plex
-star.taffyhome.local
 #PiHole
 finder.taffyhome.local
 #Ansible Delivery Server
