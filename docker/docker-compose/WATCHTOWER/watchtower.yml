@@ -2,6 +2,11 @@ version: "3.8"
 services:
   watchtower:
     image: containrrr/watchtower
+    environment:
+      WATCHTOWER_SCHEDULE: 0 0 23 * * *  # Run at 11:00 PM every day uses spring cron expression
+      TZ: America/New_York
+      WATCHTOWER_CLEANUP: "true"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+networks: {}
