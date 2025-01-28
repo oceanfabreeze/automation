@@ -1,6 +1,6 @@
 #!/bin/bash
 # -------------------------------------------------------------------------
-#author=Thomas A. Fabrizio (TAFFY)
+#author=Thomas A. Fabrizio (oceanfabreeze)
 #version=1.4
 #Changelog= Changing command ran as vpn service is not restarting
 # ----------------------------------------------------------------------------------
