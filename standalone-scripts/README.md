@@ -9,3 +9,6 @@ Installs a VPN server on a Linux node for remote access.
 
 ## vpncheck
 Checks to see if the openvpn client is running, and if not run it. 
+
+## media-filesystem-check
+Checks if the media filesystems are mounted on system reboot, if not it mounts them and restarts the docker service. 

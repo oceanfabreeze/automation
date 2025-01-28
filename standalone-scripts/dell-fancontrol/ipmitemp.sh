@@ -1,6 +1,6 @@
 #!/bin/bash
 # -------------------------------------------------------------------------
-#author=Thomas A. Fabrizio (TF054451)
+#author=Thomas A. Fabrizio (oceanfabreeze)
 #verison=1.1
 #Changelog= added some elif and changed the variables
 # ----------------------------------------------------------------------------------
