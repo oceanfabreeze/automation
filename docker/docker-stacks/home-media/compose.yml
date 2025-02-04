@@ -1,0 +1,59 @@
+name: download-stack
+version: "3.8"
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - TZ=America/New_York
+      - USER=tafabrizio
+      - PASS=insertpasswordhere
+      - PUID=1001
+      - PGID=1001
+    volumes:
+      - /etc/apps/transmission:/config
+      - /home/downloads:/downloads
+      - /etc/apps/transmission/watchfolder:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /etc/apps/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Etc/UTC
+    volumes:
+      - /etc/apps/radarr:/config
+      - /home/movies:/movies
+      - /home/downloads/complete/radarr:/downloads/complete/radarr
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - TZ=America/New_York
+      - PUID=0
+      - PGID=0
+    volumes:
+      - /etc/apps/sonarr:/config
+      - /home/tv:/tv
+      - /home/downloads/complete/tv-sonarr:/downloads/complete/tv-sonarr
+    ports:
+      - 8989:8989
+    restart: unless-stopped
