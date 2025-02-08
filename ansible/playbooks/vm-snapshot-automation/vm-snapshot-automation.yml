@@ -1,0 +1,55 @@
+# Automation for VM snapshot creation and deletion after 30 days. (Must install community.vmware using ansible-galaxy and pyvmomi)
+# Run ansible-galaxy collection install community.vmware
+# Run pip install pyvmomi
+# Author = oceanfabreeze
+# Version = 0.1 Alpha Release
+# Changelog:
+# 02/08/2025 (05:43PM EST) - Initial Release
+- name: Create and manage snapshots for all VMs on ESXi
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Gather facts about all VMs
+      community.vmware.vmware_vm_vm_docker_facts:
+        hostname: "{{ esxi_host }}"
+        username: "{{ esxi_user }}"
+        password: "{{ esxi_password }}"
+        validate_certs: no
+      register: vm_facts
+
+    - name: Create snapshots for all VMs
+      community.vmware.vmware_vm_snapshot:
+        hostname: "{{ esxi_host }}"
+        username: "{{ esxi_user }}"
+        password: "{{ esxi_password }}"
+        validate_certs: no
+        vm_id: "{{ item.vm }}"
+        snapshot_name: "{{ item.vm }}_snapshot_{{ ansible_date_time.iso8601 }}"
+        description: "Snapshot created by Ansible"
+        state: present
+      loop: "{{ vm_facts.virtual_machines }}"
+      delegate_to: localhost
+
+    - name: Gather snapshot facts for all VMs
+      community.vmware.vmware_vm_snapshot_facts:
+        hostname: "{{ esxi_host }}"
+        username: "{{ esxi_user }}"
+        password: "{{ esxi_password }}"
+        validate_certs: no
+        vm_id: "{{ item.vm }}"
+      loop: "{{ vm_facts.virtual_machines }}"
+      delegate_to: localhost
+      register: snapshot_facts
+
+    - name: Delete snapshots older than 30 days
+      community.vmware.vmware_vm_snapshot:
+        hostname: "{{ esxi_host }}"
+        username: "{{ esxi_user }}"
+        password: "{{ esxi_password }}"
+        validate_certs: no
+        vm_id: "{{ item.vm_id }}"
+        snapshot_name: "{{ snapshot.snapshot_name }}"
+        state: absent
+      loop: "{{ snapshot_facts.results | selectattr('snapshots', 'defined') | map(attribute='snapshots') | flatten }}"
+      when: (ansible_date_time.iso8601 | to_datetime) - (snapshot.create_time | to_datetime) > 30
+      delegate_to: localhost
