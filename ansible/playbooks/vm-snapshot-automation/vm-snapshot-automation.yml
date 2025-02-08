@@ -12,8 +12,8 @@
     - /etc/ansible/vars/vm-snapshot-vars.yml
   gather_facts: false
   tasks:
-    - name: Gather facts about all VMs
-      community.vmware.vmware_vm_facts:
+    - name: Gather information about all VMs
+      community.vmware.vmware_vm_info:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
@@ -21,7 +21,7 @@
       register: vm_facts
 
     - name: Create snapshots for all VMs
-      community.vmware.vmware_vm_snapshot:
+      community.vmware.vmware_guest_snapshot:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
@@ -33,8 +33,8 @@
       loop: "{{ vm_facts.virtual_machines }}"
       delegate_to: localhost
 
-    - name: Gather snapshot facts for all VMs
-      community.vmware.vmware_vm_snapshot_facts:
+    - name: Gather snapshot information for all VMs
+      community.vmware.vmware_guest_snapshot_info:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
@@ -45,7 +45,7 @@
       register: snapshot_facts
 
     - name: Delete snapshots older than 30 days
-      community.vmware.vmware_vm_snapshot:
+      community.vmware.vmware_guest_snapshot:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
