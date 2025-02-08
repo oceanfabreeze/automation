@@ -7,6 +7,8 @@
 # 02/08/2025 (05:43PM EST) - Initial Release
 - name: Create and manage snapshots for all VMs on ESXi
   hosts: localhost
+  vars_files:
+    - /etc/ansible/vars/vm-snapshot-vars.yml
   gather_facts: false
   tasks:
     - name: Gather facts about all VMs
