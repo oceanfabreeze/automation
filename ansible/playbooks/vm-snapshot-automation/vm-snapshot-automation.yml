@@ -5,6 +5,7 @@
 # Version = 0.1 Alpha Release
 # Changelog:
 # 02/08/2025 (05:43PM EST) - Initial Release
+---
 - name: Create and manage snapshots for all VMs on ESXi
   hosts: localhost
   vars_files:
@@ -12,7 +13,7 @@
   gather_facts: false
   tasks:
     - name: Gather facts about all VMs
-      community.vmware.vmware_vm_vm_docker_facts:
+      community.vmware.vmware_vm_facts:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
@@ -26,7 +27,7 @@
         password: "{{ esxi_password }}"
         validate_certs: no
         vm_id: "{{ item.vm }}"
-        snapshot_name: "{{ item.vm }}_snapshot_{{ ansible_date_time.iso8601 }}"
+        snapshot_name: "{{ item.name }}_snapshot_{{ ansible_date_time.iso8601 }}"
         description: "Snapshot created by Ansible"
         state: present
       loop: "{{ vm_facts.virtual_machines }}"
@@ -49,7 +50,7 @@
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
         validate_certs: no
-        vm_id: "{{ item.vm_id }}"
+        vm_id: "{{ snapshot.vm_id }}"
         snapshot_name: "{{ snapshot.snapshot_name }}"
         state: absent
       loop: "{{ snapshot_facts.results | selectattr('snapshots', 'defined') | map(attribute='snapshots') | flatten }}"
