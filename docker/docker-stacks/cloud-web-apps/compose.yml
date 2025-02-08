@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  overseerr:
+    image: sctx/overseerr:latest
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/New_York
+    ports:
+      - 5055:5055
+    volumes:
+      - /etc/apps/overseerr:/app/config
+    restart: unless-stopped
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    volumes:
+      - /etc/apps/uptimekuma:/app/data
+    ports:
+      - 3002:3001
+    restart: unless-stopped
+  nginxproxymgr:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - 3000:80
+      - 3001:81
+      - 3443:443
+    volumes:
+      - /etc/apps/nginxproxy:/data
+      - /etc/apps/letsencrypt:/etc/letsencrypt
+networks: {}
