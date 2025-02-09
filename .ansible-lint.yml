@@ -1,6 +1,9 @@
 ---
 profile: production
 
+exclude:
+  - "community.vmware.*"
+
 # Exclude paths from linter
 exclude_paths:
   - ".github/"
