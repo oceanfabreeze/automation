@@ -2,7 +2,7 @@
 # Run ansible-galaxy collection install community.vmware
 # Run pip install pyvmomi
 # Author = oceanfabreeze
-# Version = 0.1 Alpha Release
+# Version = 0.7 Alpha Release
 # Changelog:
 # 02/08/2025 (05:43PM EST) - Initial Release
 ---
@@ -10,7 +10,7 @@
   hosts: localhost
   vars_files:
     - /etc/ansible/vars/vm-snapshot-vars.yml
-  gather_facts: false
+  gather_facts: true  # Enable fact gathering to get ansible_date_time
   tasks:
     - name: Gather information about all VMs
       community.vmware.vmware_vm_info:
@@ -20,14 +20,21 @@
         validate_certs: no
       register: vm_facts
 
+    - name: Set datacenter (assuming the first datacenter in the facts)
+      set_fact:
+        datacenter: "{{ vm_facts.virtual_machines[0].datacenter }}"
+      when: vm_facts.virtual_machines | length > 0
+
     - name: Create snapshots for all VMs
       community.vmware.vmware_guest_snapshot:
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
+        name: "{{ item.guest_name }}"
         validate_certs: no
-        vm_id: "{{ item.vm }}"
-        snapshot_name: "{{ item.name }}_snapshot_{{ ansible_date_time.iso8601 }}"
+        datacenter: "{{ datacenter }}"
+        folder: "/{{ datacenter }}/vm/"
+        snapshot_name: "{{ item.guest_name }}_snapshot_{{ ansible_date_time.iso8601 }}"
         description: "Snapshot created by Ansible"
         state: present
       loop: "{{ vm_facts.virtual_machines }}"
@@ -38,8 +45,10 @@
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
+        name: "{{ item.guest_name }}"
         validate_certs: no
-        vm_id: "{{ item.vm }}"
+        datacenter: "{{ datacenter }}"
+        folder: "/{{ datacenter }}/vm/"
       loop: "{{ vm_facts.virtual_machines }}"
       delegate_to: localhost
       register: snapshot_facts
@@ -49,8 +58,10 @@
         hostname: "{{ esxi_host }}"
         username: "{{ esxi_user }}"
         password: "{{ esxi_password }}"
+        name: "{{ item.guest_name }}"
         validate_certs: no
-        vm_id: "{{ snapshot.vm_id }}"
+        datacenter: "{{ datacenter }}"
+        folder: "/{{ datacenter }}/vm/"
         snapshot_name: "{{ snapshot.snapshot_name }}"
         state: absent
       loop: "{{ snapshot_facts.results | selectattr('snapshots', 'defined') | map(attribute='snapshots') | flatten }}"
