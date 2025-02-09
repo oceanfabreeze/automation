@@ -10,7 +10,7 @@ exclude_paths:
   - "docker/"
   - "secops/"
   - "ansible/etc"
-  - "ansible/playbooks/vm-snapshot-automation
+  - "ansible/playbooks/vm-snapshot-automation"
 
 # Ansible Linter rules
 skip_list:
