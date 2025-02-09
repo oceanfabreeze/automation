@@ -46,3 +46,6 @@
     - name: Pause for User Input to confirm configuration
       ansible.builtin.pause:
         prompt: AdGuard Home Installed! Finish configuration at hostname on port 3000. Press return to exit install.
+
+
+rtnakndskandklasn
