@@ -77,7 +77,7 @@
         var: command_output.stdout_lines
 
     - name: Deploy Container stack
-      ansible.builtin.command: wget -P /opt/stacks/download-stack https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/docker/docker-stacks/download-stack/compose.yml
+      ansible.builtin.command: sudo wget -P /opt/stacks/download-stack https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/docker/docker-stacks/download-stack/compose.yml
       register: command_output
     - name: Output
       ansible.builtin.debug:
