@@ -4,9 +4,10 @@
 # Changelog:
 # 12/24/2024 (09:59AM EST): Initial commit.
 # 02/10/2025 (08:41PM EST): Re-ordered tasks to ensure proper execution and automated deployment of stack.
+# 02/10/2025 (08:49PM EST): Changed host config to only run on uplink.
 
-- name: RED HAT
-  hosts: RHEL
+- name: UPLINK
+  hosts: uplink.taffyhome.local
   tasks:
     - name: Remove all existing Docker installations
       ansible.builtin.command: sudo yum -y remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman
