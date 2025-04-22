@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  idrac6:
+    ports:
+      - 5800:5800
+      - 5900:5900
+    environment:
+      - IDRAC_HOST=xxxxxxxx
+      - IDRAC_USER=xxxxxx
+      - IDRAC_PASSWORD=xxxxxx
+    image: domistyle/idrac6
+networks: {}

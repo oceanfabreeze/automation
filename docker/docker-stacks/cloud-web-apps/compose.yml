@@ -8,12 +8,12 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - /etc/apps/overseerr:/app/config
+      - /mnt/.ix-apps/app_data/overseerr:/app/config
     restart: unless-stopped
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     volumes:
-      - /etc/apps/uptimekuma:/app/data
+      - /mnt/.ix-apps/app_data/uptimekuma:/app/data
     ports:
       - 3002:3001
     restart: unless-stopped
@@ -25,6 +25,6 @@ services:
       - 3001:81
       - 3443:443
     volumes:
-      - /etc/apps/nginxproxy:/data
-      - /etc/apps/letsencrypt:/etc/letsencrypt
+      - /mnt/.ix-apps/app_data/nginxproxy:/data
+      - /mnt/.ix-apps/app_data/letsencrypt:/etc/letsencrypt
 networks: {}
