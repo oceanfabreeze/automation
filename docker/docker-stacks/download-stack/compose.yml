@@ -1,5 +1,4 @@
 name: download-stack
-version: "3.8"
 services:
   transmission:
     image: lscr.io/linuxserver/transmission:latest

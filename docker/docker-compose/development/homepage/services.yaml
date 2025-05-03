@@ -1,0 +1,141 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+
+- HomeLab:
+    - Dream Machine Pro:
+        icon: unifi-controller.png
+        href: https://xxxx.taffyhome.local
+        description: xxxx
+        widget:
+          type: unifi
+          url: https://xxxx.taffyhome.local
+          key: xxxx
+    - Adgaurd Home:
+        icon: adguard-home.png
+        href: http://xxxx.taffyhome.local:33
+        description: xxxx
+        widget:
+          type: adguard
+          url: http://xxxx.taffyhome.local:33
+          username: xxxx
+          password: xxxx
+    - Homebridge:
+        icon: homebridge.png
+        href: http://xxxx.taffyhome.local:8581
+        server: xxxx
+        container: xxxx
+        widget:
+          type: homebridge
+          url: http://xxxx.taffyhome.local:8581
+          username: xxxx
+          password: xxxx
+    - TrueNAS Scale 1:
+        icon: truenas-scale.png
+        href: https://xxxx.taffyhome.local
+        description: xxxx
+        widget:
+          type: truenas
+          url: https://xxxx.taffyhome.local
+          key: xxxx
+    - TrueNAS Scale 2:
+        icon: truenas-scale.png
+        href: https://xxxx.taffyhome.local
+        description: xxxx
+        widget:
+          type: truenas
+          url: https://xxxx.taffyhome.local
+          key: xxxx
+
+- Media:
+    - Plex:
+        icon: plex.png
+        href: http://xxxx.taffyhome.local:32400
+        description: xxxx
+        server: xxxx
+        container: xxxx
+        widget:
+          type: plex
+          url: http://xxxx.taffyhome.local:32400
+          key: xxxx
+    - Immich:
+        icon: immich.png
+        href: http://xxxx.taffyhome.local:2283/
+        server: xxxx
+        container: xxxx
+        widget:
+          type: immich
+          url: http://xxxx.taffyhome.local:2283/
+          key: xxxx
+          version: 2
+
+
+- Download Services:
+    - Transmission:
+        icon: transmission.png
+        href: http://xxxx.taffyhome.local:9091
+        server: xxxx
+        container: xxxx
+        widget:
+          type: transmission
+          url: http://xxxx.taffyhome.local:9091
+          username: xxxx
+          password: xxxx
+    - Radarr:
+        icon: radarr.png
+        href: http://xxxx.taffyhome.local:7878
+        server: xxxx
+        container: xxxx
+        widget:
+          type: radarr
+          url: http://xxxx.taffyhome.local:7878
+          key: xxxx
+    - Sonarr:
+        icon: sonarr.png
+        href: http://xxxx.taffyhome.local:8989
+        server: xxxx
+        container: xxxx
+        widget:
+          type: sonarr
+          url: http://xxxx.taffyhome.local:8989
+          key: xxxx
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://xxxx.taffyhome.local:9696
+        server: xxxx
+        container: xxxx
+        widget:
+          type: prowlarr
+          url: http://xxxx.taffyhome.local:9696
+          key: xxxx
+
+- Public Services:
+    - NGINX Proxy Manager:
+        icon: nginx-proxy-manager.png
+        href: http://xxxx.taffyhome.local:3001
+        server: xxxx
+        container: nginx-proxy-manager
+        widget:
+          type: npm
+          url: http://xxxx.taffyhome.local:3001
+          username: xxxx
+          password: xxxx
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: http://xxxx.taffyhome.local:3002
+        server: xxxx
+        container: xxxx
+        widget:
+          type: uptimekuma
+          url: http://xxxx.taffyhome.local:3002
+          slug: xxxx
+    - Overseer:
+        icon: overseerr.png
+        href: http://xxxx.taffyhome.local:5055
+        server: xxxx
+        container: xxxx
+        widget:
+          type: overseerr
+          url: http://xxxx.taffyhome.local:5055
+          key: xxxx

@@ -3,9 +3,11 @@
 # Version = 0.1.0 Alpha
 # Changelog:
 # 12/24/2024 (09:59AM EST): Initial commit.
+# 02/10/2025 (08:41PM EST): Re-ordered tasks to ensure proper execution and automated deployment of stack.
+# 02/10/2025 (08:49PM EST): Changed host config to only run on uplink.
 
-- name: RED HAT
-  hosts: RHEL
+- name: UPLINK
+  hosts: uplink.taffyhome.local
   tasks:
     - name: Remove all existing Docker installations
       ansible.builtin.command: sudo yum -y remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman
@@ -20,6 +22,24 @@
     - name: Output
       ansible.builtin.debug:
         var: command_output.stdout_lines
+
+    - name: Install cifs-utils
+      ansible.builtin.command: sudo dnf -y install cifs-utils
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install nfs-utils
+      ansible.builtin.command: sudo dnf -y install nfs-utils
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause to mount network shares
+      ansible.builtin.pause:
+        prompt: Please mount network shares, then press return to continue.
 
     - name: Add Docker Repository
       ansible.builtin.command: sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
@@ -56,9 +76,16 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Pause to deploy containers for ARR stack (Sonarr, Radarr, Prowlarr, Transmission, Watchtower)
+    - name: Deploy Container stack
+      ansible.builtin.command: sudo wget -P /opt/stacks/download-stack https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/docker/docker-stacks/download-stack/compose.yml
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause to deploy confirm container deployment in Dockge Console
       ansible.builtin.pause:
-        prompt: Please deploy the containers for the ARR stack, then press return to continue execution.
+        prompt: Please verify containers were deployed successfully in the Dockge console and deployed, then press return to continue execution.
 
     - name: Install OpenVPN
       ansible.builtin.command: sudo dnf -y install openvpn
@@ -101,13 +128,6 @@
 
     - name: Add vpncheck.sh to root crontab and run every 5 minutes
       ansible.builtin.command: sudo echo "*/5 * * * * /home/ansible/vpncheck.sh >> /home/ansible/vpnlog.txt" >> /var/spool/cron/root
-      register: command_output
-    - name: Output
-      ansible.builtin.debug:
-        var: command_output.stdout_lines
-
-    - name: Install cifs-utils
-      ansible.builtin.command: sudo dnf -y install cifs-utils
       register: command_output
     - name: Output
       ansible.builtin.debug:
