@@ -1,0 +1,80 @@
+# Deploys Docker and Dockge on a Linux host. 
+# Author = oceanfabreeze
+# Version = 0.1.0 Alpha
+# Changelog:
+# 05/03/2025 (12:10AM EDT): Initial commit.
+
+
+- name: STATION
+  hosts: station.taffyhome.local
+  tasks:
+    - name: Remove all existing Docker installations
+      ansible.builtin.command: sudo yum -y remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install dnf-plugins-core
+      ansible.builtin.command: sudo dnf -y install dnf-plugins-core
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install cifs-utils
+      ansible.builtin.command: sudo dnf -y install cifs-utils
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install nfs-utils
+      ansible.builtin.command: sudo dnf -y install nfs-utils
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause to mount network shares
+      ansible.builtin.pause:
+        prompt: Please mount network shares, then press return to continue.
+
+    - name: Add Docker Repository
+      ansible.builtin.command: sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Install Docker
+      ansible.builtin.command: sudo yum -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Start Docker
+      ansible.builtin.command: sudo systemctl enable --now docker
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Download Dockge Compose File
+      ansible.builtin.command: sudo wget -P /home/ansible/ https://raw.githubusercontent.com/oceanfabreeze/automation/refs/heads/main/docker/docker-compose/DOCKGE/dockge.yml
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Deploy Dockge
+      ansible.builtin.command: sudo docker compose -f /home/ansible/dockge.yml up -d
+      register: command_output
+    - name: Output
+      ansible.builtin.debug:
+        var: command_output.stdout_lines
+
+    - name: Pause for Successful Install Message
+      ansible.builtin.pause:
+        prompt: The ARR stack has been successfully deployed. Please confirm the containers are running and the VPN is connected, then press return to finish execution
