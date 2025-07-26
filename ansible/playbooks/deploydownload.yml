@@ -1,6 +1,6 @@
 # Deploys Docker and ARR stack on a Linux host.
 # Author = oceanfabreeze
-# Version = 0.1.0 Alpha
+# Version = 0.1.0 Beta
 # Changelog:
 # 12/24/2024 (09:59AM EST): Initial commit.
 # 02/10/2025 (08:41PM EST): Re-ordered tasks to ensure proper execution and automated deployment of stack.

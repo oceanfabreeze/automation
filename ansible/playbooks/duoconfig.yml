@@ -1,6 +1,6 @@
 # Configure Duo authentication on new Linux hosts
 # Author = oceanfabreeze
-# Version = 0.1.3 Alpha
+# Version = 0.1.3 Beta
 # Changelog:
 # 12/06/2024 (02:16PM EST): Created Playbook. Initial commit includes installing the duo package.
 # 12/06/2024 (02:46PM EST): Adding Modifications to SSHD config for OEL and RHEL and restarting the service. Adding pause prompt to update duo config file.
