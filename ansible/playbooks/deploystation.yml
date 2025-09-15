@@ -3,6 +3,7 @@
 # Version = 0.1.0 Beta
 # Changelog:
 # 05/03/2025 (12:10AM EDT): Initial commit.
+# 09/15/2025 (02:07PM EDT): Updated finish message.
 
 
 - name: STATION
@@ -77,4 +78,4 @@
 
     - name: Pause for Successful Install Message
       ansible.builtin.pause:
-        prompt: The ARR stack has been successfully deployed. Please confirm the containers are running and the VPN is connected, then press return to finish execution
+        prompt: The local applications stack has been successfully deployed. Please confirm the containers are running, then press return to finish execution.
