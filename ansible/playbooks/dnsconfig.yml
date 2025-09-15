@@ -8,7 +8,7 @@
   hosts: oraclelinux
   tasks:
     - name: Install AdGaurd Home
-      ansible.builtin.command: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+      ansible.builtin.shell: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
       register: command_output
     - name: Output
       ansible.builtin.debug:
@@ -22,7 +22,7 @@
   hosts: RHEL
   tasks:
     - name: Install AdGaurd Home
-      ansible.builtin.command: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+      ansible.builtin.shell: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
       register: command_output
     - name: Output
       ansible.builtin.debug:
