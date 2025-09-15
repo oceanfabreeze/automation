@@ -3,11 +3,12 @@
 # Version = 0.1.0 Beta
 # Changelog:
 # 12/07/2024 (04:49PM EST): Initial commit. Installs AdGuard Home on a Linux host.
+# 09/15/2025 (02:21PM EDT): Fixed typo in task names.
 
 - name: Oracle Linux
   hosts: oraclelinux
   tasks:
-    - name: Install AdGaurd Home
+    - name: Install AdGuard Home
       ansible.builtin.shell: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
       register: command_output
     - name: Output
@@ -21,7 +22,7 @@
 - name: RED HAT
   hosts: RHEL
   tasks:
-    - name: Install AdGaurd Home
+    - name: Install AdGuard Home
       ansible.builtin.shell: set -o pipefail && sudo wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
       register: command_output
     - name: Output
@@ -35,7 +36,7 @@
 - name: UBUNTU
   hosts: ubuntuserver
   tasks:
-    - name: Install AdGaurd Home
+    - name: Install AdGuard Home
       ansible.builtin.shell: set -o pipefail && wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
       become: true
       register: command_output
