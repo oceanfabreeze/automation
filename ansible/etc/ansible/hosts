@@ -12,12 +12,10 @@
 #12/24/2024 (10:40AM EST): Added host (uplink) for ARR stack and VPN
 #12/25/2024 (07:06PM EST): Removed host grabber as it's stack was containerized and moved to uplink. Removed host star as its stack was containerized and moved to station.
 #09/15/2025 (02:23PM EDT): Removed RHEL section as all RHEL servers have been migrated to Oracle Linux.  Removed rocket as it's no longer in use.
+#09/28/2025 (08:36AM EDT): Added servers back to RHEL as they're relicensed and back in use.
 
 [RHEL]
-# RHEL servers migrated to Oracle Linux as of 09/2025.
-
-[oraclelinux]
-#PiHole
+#DNS
 finder.taffyhome.local
 #Ansible Delivery Server
 ansible.taffyhome.local
@@ -25,6 +23,9 @@ ansible.taffyhome.local
 station.taffyhome.local
 #ARR stack and VPN
 uplink.taffyhome.local
+
+[oraclelinux]
+#No Oracle Linux servers in use at this time.
 
 [ubuntuserver]
 # No Ubuntu servers in use at this time other than custom NAS distros which are unmanaged.
