@@ -2,9 +2,11 @@
 # Version = 1.0 Initial release
 # Changelog:
 # 12/23/2024 (11:01PM EST): Inital Commit.
+# 10/20/2025 (01:32PM EDT): Set facts gathering to no. 
 
 - name: Oracle Linux
   hosts: oraclelinux
+  gather_facts: no
   tasks:
     - name: Upgrade Packages ORACLE
       ansible.builtin.command: sudo yum -y upgrade
@@ -22,6 +24,7 @@
 
 - name: RED HAT
   hosts: RHEL
+  gather_facts: no
   tasks:
     - name: Upgrade Packages RHEL
       ansible.builtin.command: sudo yum -y upgrade
@@ -40,6 +43,7 @@
 
 - name: UBUNTU
   hosts: ubuntuserver
+  gather_facts: no
   tasks:
     - name: Make sure everything is up to date UBUNTU
       ansible.builtin.shell: sudo apt-get -y upgrade
