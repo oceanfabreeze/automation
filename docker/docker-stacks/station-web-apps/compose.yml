@@ -1,0 +1,32 @@
+services:
+  overseerr:
+    image: sctx/overseerr:latest
+    container_name: overseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/New_York
+    ports:
+      - xxxx:5055
+    volumes:
+      - /etc/apps/overseerr:/app/config
+    restart: unless-stopped
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime_kuma
+    volumes:
+      - /etc/apps/uptimekuma:/app/data
+    ports:
+      - xxxx:3001
+    restart: unless-stopped
+  nginxproxymgr:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginxproxy
+    restart: unless-stopped
+    ports:
+      - xxxx:80
+      - xxxx:81
+      - xxxx:443
+    volumes:
+      - /etc/apps/nginxproxynew:/data
+      - /etc/apps/letsencryptnew:/etc/letsencrypt
+networks: {}

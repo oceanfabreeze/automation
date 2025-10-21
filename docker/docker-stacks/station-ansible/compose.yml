@@ -1,0 +1,20 @@
+services:
+  semaphore:
+    ports:
+      - 1010:3000
+    image: semaphoreui/semaphore:v2.16.18-powershell7.5.0
+    container_name: semaphore
+    environment:
+      SEMAPHORE_DB_DIALECT: sqlite
+      SEMAPHORE_ADMIN: xxxxxx
+      SEMAPHORE_ADMIN_PASSWORD: changeme
+      SEMAPHORE_ADMIN_NAME: xxxxxx
+      SEMAPHORE_ADMIN_EMAIL: xxxxxx@thomasfabriziojr.com
+      SEMAPHORE_TOTP_ENABLED: "True"
+      SEMAPHORE_TLS_ENABLED: "False"
+      SEMAPHORE_SCHEDULE_TIMEZONE: America/New_York
+    volumes:
+      - /etc/apps/semaphoredata:/var/lib/semaphore
+      - /etc/apps/semaphoreconfig:/etc/semaphore
+      - /etc/apps/semaphoretmp:/tmp/semaphore
+networks: {}
