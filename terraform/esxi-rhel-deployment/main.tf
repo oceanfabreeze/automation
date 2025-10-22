@@ -1,3 +1,5 @@
+#Terraform code to deploy virtual machines in case of entire lab disaster. 
+
 terraform {
   required_providers {
     esxi = {
@@ -41,14 +43,16 @@ resource "esxi_guest" "rhel" {
 
   guest_name    = each.key
   disk_store    = "TempDatastore"
-  network_name  = "VM Network"
-  guestos       = "rhel9_64Guest"
   memsize       = each.value.memory
   numvcpus      = each.value.cpus
   disk_size     = each.value.disk
   clone_from_vm = "rhel9-base"
   power         = "on"
 
+  network_interfaces {
+  virtual_network = "VM Network"
+  }
+  
   # Pass hostname to cloud-init
   extra_config = {
     "guestinfo.metadata"          = base64encode(jsonencode({ local_hostname = each.key }))
