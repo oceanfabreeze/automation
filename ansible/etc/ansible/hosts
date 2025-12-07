@@ -17,11 +17,11 @@
 
 [RHEL]
 #DNS
-finder.taffyhome.local
+finder.taffyhome.internal
 #docker
-station.taffyhome.local
+station.taffyhome.internal
 #ARR stack and VPN
-uplink.taffyhome.local
+uplink.taffyhome.internal
 
 [oraclelinux]
 #No Oracle Linux servers in use at this time.
