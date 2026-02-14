@@ -3,6 +3,7 @@
 # Changelog:
 # 12/23/2024 (11:01PM EST): Inital Commit.
 # 10/20/2025 (01:32PM EDT): Set facts gathering to no.
+# 02/14/2025 (12:53PM EST): Extended reboot command in an attempt to give time for automation to grab logs.
 
 - name: Oracle Linux
   hosts: oraclelinux
@@ -54,7 +55,7 @@
         var: command_output.stdout_lines
 
     - name: Reboot Machines 3 minutes after installation.
-      ansible.builtin.shell: shutdown -r +3 "The system is going down for updates in 3 minutes."
+      ansible.builtin.shell: shutdown -r +10 "The system is going down for updates in 10 minutes."
       become: true
       register: command_output
     - name: Output
