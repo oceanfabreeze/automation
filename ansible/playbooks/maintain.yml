@@ -54,7 +54,7 @@
       ansible.builtin.debug:
         var: command_output.stdout_lines
 
-    - name: Reboot Machines 3 minutes after installation.
+    - name: Reboot Machines 10 minutes after installation.
       ansible.builtin.shell: shutdown -r +10 "The system is going down for updates in 10 minutes."
       become: true
       register: command_output
