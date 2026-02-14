@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       - TZ=America/New_York
-      - PLEX_CLAIM=xxxxxxx #claim token
+      - PLEX_CLAIM=xxxxxx
       - PLEX_UID=1001
       - PLEX_GID=1001
     network_mode: host
@@ -20,6 +20,8 @@ services:
     image: homebridge/homebridge:latest
     container_name: homebridge
     restart: unless-stopped
+    environment:
+      - TZ=America/New_York
     network_mode: host
     volumes:
       - /etc/apps/homebridge:/homebridge
@@ -36,7 +38,7 @@ services:
   homebox:
     image: ghcr.io/hay-kot/homebox:latest
     container_name: homebox
-    restart: always
+    restart: unless-stopped
     environment:
       - HBOX_LOG_LEVEL=info
       - HBOX_LOG_FORMAT=text
@@ -45,4 +47,22 @@ services:
       - /etc/apps/homebox:/data/
     ports:
       - 3100:7745
-networks: {}
+  lubelogger:
+    image: ghcr.io/hargata/lubelogger:latest
+    container_name: lubelogger
+    restart: unless-stopped
+    volumes:
+      - /etc/apps/lubelogger/data:/App/data
+      - /etc/apps/lubelogger/keys:/root/.aspnet/DataProtection-Keys
+    ports:
+      - 369:8080
+  trilium:
+    image: triliumnext/trilium:latest
+    container_name: trilium
+    restart: unless-stopped
+    ports:
+      - 3693:8080
+    volumes:
+      - /etc/apps/trilium:/home/node/trilium-data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro

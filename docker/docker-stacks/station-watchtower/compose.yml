@@ -1,8 +1,8 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: nickfedor/watchtower:latest
     environment:
-      WATCHTOWER_SCHEDULE: 0 0 23 * * *
+      WATCHTOWER_SCHEDULE: 0 0 02 * * *
       TZ: America/New_York
       WATCHTOWER_CLEANUP: "true"
     volumes:

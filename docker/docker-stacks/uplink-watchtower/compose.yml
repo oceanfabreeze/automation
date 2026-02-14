@@ -1,6 +1,6 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: nickfedor/watchtower:latest
     environment:
       WATCHTOWER_SCHEDULE: 0 0 23 * * *
       TZ: America/New_York
