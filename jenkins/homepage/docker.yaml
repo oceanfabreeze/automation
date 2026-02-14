@@ -1,0 +1,14 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/docker/
+
+station:
+   host: station.taffyhome.internal
+   port: 2375
+
+uplink:
+   host: uplink.taffyhome.internal
+   port: 2375
+
+# my-docker:
+#   socket: /var/run/docker.sock

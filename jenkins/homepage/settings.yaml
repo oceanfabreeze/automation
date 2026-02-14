@@ -1,0 +1,17 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+# TESTING
+
+title: TAFLab
+description: A simple homepage for TAFLab
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
+
+headerStyle: boxed
+statusStyle: "dot"
+background: https://512pixels.net/downloads/macos-wallpapers-6k/15-Sequoia-Dark-16x9.jpg
+cardBlur: xl # xs, md, etc... see https://tailwindcss.com/docs/backdrop-blur
+maxGroupColumns: 5
+fullWidth: true

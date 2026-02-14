@@ -1,0 +1,21 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/bookmarks
+
+- Developer:
+    - Github:
+        - icon: github.png
+          href: https://github.com/oceanfabreeze
+          description: The complete developer platform.
+    - Backblaze:
+        - icon: backblaze.png
+          href: https://secure.backblaze.com/user_signin.htm
+          description: Cloud object storage.
+    - Tailscale:
+        - icon: tailscale.png
+          href: https://login.tailscale.com/
+          description: a zero-config, no-fuss VPN.
+    - Cloudflare:
+        - icon: cloudflare.png
+          href: https://www.cloudflare.com/
+          description: Connect, protect, and build everywhere.

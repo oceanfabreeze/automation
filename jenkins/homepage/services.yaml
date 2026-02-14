@@ -1,0 +1,211 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+
+- HomeLab Hardware:
+    - Dream Machine Pro:
+        icon: unifi-controller.png
+        href: https://galaxy.taffyhome.internal
+        description: Galaxy
+        widget:
+          type: unifi
+          url: https://galaxy.taffyhome.internal
+          key: secretkeyexample
+    - TrueNAS Scale:
+        icon: truenas-scale.png
+        href: https://skylab.taffyhome.internal
+        description: Skylab
+        widget:
+          type: truenas
+          url: https://skylab.taffyhome.internal
+          key: secretkeyexample
+    - Proxmox Virtual Engine 1:
+        icon: proxmox-light.png
+        href: https://axiom.taffyhome.internal:8006
+        description: Axiom
+    - Proxmox Virtual Engine 2:
+        icon: proxmox-light.png
+        href: https://artemis.taffyhome.internal:8006
+        description: Artemis
+- HomeLab Tools:
+    - Dockge:
+        icon: dockge.png
+        href: http://station.taffyhome.internal:5001
+        description: Docker Control Plane
+    - Semaphore:
+        icon: semaphore.png
+        href: http://station.taffyhome.internal:1010
+        description: Automation Deployment Manager
+        server: station
+        container: semaphore
+    - Jenkins:
+        icon: jenkins.png
+        href: http://station.taffyhome.internal:9090
+        description: CI/CD Pipeline Tool
+        server: station
+        container: jenkins
+    - Homebridge:
+        icon: homebridge.png
+        href: http://station.taffyhome.internal:8581
+        description: Apple HomeKit Automation
+        server: station
+        container: homebridge
+        widget:
+          type: homebridge
+          url: http://station.taffyhome.internal:8581
+          username: admin
+          password: passwordexample
+    - Adguard Home:
+        icon: adguard-home.png
+        href: http://finder.taffyhome.internal:33
+        description: DNS Server
+        widget:
+          type: adguard
+          url: http://finder.taffyhome.internal:33
+          username: admin
+          password: passwordexample
+- Homelab Applications:
+    - Plex:
+        icon: plex.png
+        href: http://station.taffyhome.internal:32400
+        description: Movies, TV, and Home Videos
+        server: station
+        container: plex
+        widget:
+          type: plex
+          url: http://station.taffyhome.internal:32400
+          key: secretkeyexample
+    - Immich:
+        icon: immich.png
+        href: http://station.taffyhome.internal:2283/
+        description: Photos and Videos
+        server: station
+        container: immich_server
+        widget:
+          type: immich
+          url: http://station.taffyhome.internal:2283/
+          key: secretkeyexample
+          version: 2
+    - Homebox:
+        icon: homebox.png
+        href: http://station.taffyhome.internal:3100
+        description: Asset Management
+        server: station
+        container: homebox
+        widget:
+          type: homebox
+          url: http://station.taffyhome.internal:3100
+          username: me@thomasfabriziojr.com
+          password: secretpasswordexample
+    - Paperless-ngx:
+        icon: paperless.png
+        href: http://station.taffyhome.internal:1221
+        description: Paperless Document Management
+        server: station
+        container: paperless-webserver
+    - LubeLogger:
+        icon: lubelogger.png
+        href: http://station.taffyhome.internal:369
+        description: Vehicle Maintenance Tracker
+        server: station
+        container: lubelogger
+    - Trilium Notes:
+        icon: trilium.png
+        href: http://station.taffyhome.internal:3693
+        description: Personal Notes and Knowledgebase
+        server: station
+        container: trilium
+- Download Services:
+    - Transmission:
+        icon: transmission.png
+        href: http://uplink.taffyhome.internal:9091
+        description: Lightweight Torrent Client
+        server: uplink
+        container: transmission
+        widget:
+          type: transmission
+          url: http://uplink.taffyhome.internal:9091
+          username: tafabrizio
+          password: secretpasswordexample
+    - NZBGet:
+        icon: nzbget.png
+        href: http://uplink.taffyhome.internal:6789
+        description: Newshosting Client
+        server: uplink
+        container: nzbget
+        widget:
+          type: nzbget
+          url: http://uplink.taffyhome.internal:6789
+          username: tafabrizio
+          password: secretpasswordexample
+    - Radarr:
+        icon: radarr.png
+        href: http://uplink.taffyhome.internal:7878
+        description: Automated Movie Management
+        server: uplink
+        container: radarr
+        widget:
+          type: radarr
+          url: http://uplink.taffyhome.internal:7878
+          key: secretpasswordexample
+    - Sonarr:
+        icon: sonarr.png
+        href: http://uplink.taffyhome.internal:8989
+        description: Automated TV Management
+        server: uplink
+        container: sonarr
+        widget:
+          type: sonarr
+          url: http://uplink.taffyhome.internal:8989
+          key: secretkeyexample
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://uplink.taffyhome.internal:9696
+        description: Media Repository Management
+        server: uplink
+        container: prowlarr
+        widget:
+          type: prowlarr
+          url: http://uplink.taffyhome.internal:9696
+          key: secretkeyexample
+- Public Services:
+    - NGINX Proxy Manager:
+        icon: nginx-proxy-manager.png
+        href: http://station.taffyhome.internal:3001
+        description: Web Proxy Server
+        server: station
+        container: nginxproxy
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: http://station.taffyhome.internal:3002
+        description: Status Monitoring
+        server: station
+        container: uptime_kuma
+        widget:
+          type: uptimekuma
+          url: http://station.taffyhome.internal:3002
+          slug: taflab
+    - Overseer:
+        icon: overseerr.png
+        href: http://station.taffyhome.internal:5055
+        description: External Request Service for Movies and TV
+        server: station
+        container: overseerr
+        widget:
+          type: overseerr
+          url: http://station.taffyhome.internal:5055
+          key: secretkeyexample
+- HomeLab OOB:
+    - 45Homelab:
+        icon: asrock-rack.png
+        href: https://asrockrack.taffyhome.internal
+        description: 45Homelab HL15
+    - iDRAC 7:
+        icon: dell.png
+        href: https://idrac7.taffyhome.internal
+        description: R720
+    - iDRAC 9:
+        icon: dell.png
+        href: https://idrac9.taffyhome.internal
+        description: R740xd
