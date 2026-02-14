@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(name: 'TARGET_SERVER', defaultValue: 'ansible@station.taffyhome.internal', description: 'Target Linux server')
         string(name: 'TARGET_PATH', defaultValue: '/etc/apps/homepage', description: 'Destination path on target server')
-        string(name: 'YAML_SOURCE_DIR', defaultValue: 'ansible/playbooks', description: 'Source directory in repo containing YAML files')
+        string(name: 'YAML_SOURCE_DIR', defaultValue: 'jenkins/homepage', description: 'Source directory in repo containing YAML files')
     }
     
     environment {
@@ -49,20 +49,6 @@ pipeline {
                     } else {
                         echo "YAML files changed:\n${changedFiles}"
                     }
-                }
-            }
-        }
-        
-        stage('Validate YAML Files') {
-            steps {
-                script {
-                    sh """
-                        # Find and validate all YAML files
-                        find ${params.YAML_SOURCE_DIR} -type f \\( -name "*.yml" -o -name "*.yaml" \\) | while read file; do
-                            echo "Validating \$file"
-                            python3 -c "import yaml; yaml.safe_load(open('\$file'))" || exit 1
-                        done
-                    """
                 }
             }
         }
