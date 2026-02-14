@@ -1,0 +1,14 @@
+---
+- name: Test Job
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Print test message
+      debug:
+        msg: "Hello from Jenkins"
+    
+    - name: Simple assertion
+      assert:
+        that:
+          - true
+        fail_msg: "Test failed"
